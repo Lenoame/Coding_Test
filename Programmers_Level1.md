@@ -490,7 +490,8 @@ def solution(n):
     return answer
 ```
 
-## 정수 내림차순으로 배치가
+## 정수 내림차순으로 배치하기
+
 문제 설명
 함수 solution은 정수 n을 매개변수로 입력받습니다. n의 각 자릿수를 큰것부터 작은 순으로 정렬한 새로운 정수를 리턴해주세요. 예를들어 n이 118372면 873211을 리턴하면 됩니다.
 
@@ -548,4 +549,107 @@ def solution(n):
     # 그렇지 않다면 -1 리턴하기
     else:
         return -1
+```
+
+## 모의고사
+문제 설명
+수포자는 수학을 포기한 사람의 준말입니다. 수포자 삼인방은 모의고사에 수학 문제를 전부 찍으려 합니다. 수포자는 1번 문제부터 마지막 문제까지 다음과 같이 찍습니다.
+
+1번 수포자가 찍는 방식: 1, 2, 3, 4, 5, 1, 2, 3, 4, 5, ...
+2번 수포자가 찍는 방식: 2, 1, 2, 3, 2, 4, 2, 5, 2, 1, 2, 3, 2, 4, 2, 5, ...
+3번 수포자가 찍는 방식: 3, 3, 1, 1, 2, 2, 4, 4, 5, 5, 3, 3, 1, 1, 2, 2, 4, 4, 5, 5, ...
+
+1번 문제부터 마지막 문제까지의 정답이 순서대로 들은 배열 answers가 주어졌을 때, 가장 많은 문제를 맞힌 사람이 누구인지 배열에 담아 return 하도록 solution 함수를 작성해주세요.
+
+제한 조건
+시험은 최대 10,000 문제로 구성되어있습니다.
+문제의 정답은 1, 2, 3, 4, 5중 하나입니다.
+가장 높은 점수를 받은 사람이 여럿일 경우, return하는 값을 오름차순 정렬해주세요.
+입출력 예
+answers	return
+[1,2,3,4,5]	[1]
+[1,3,2,4,2]	[1,2,3]
+입출력 예 설명
+입출력 예 #1
+
+수포자 1은 모든 문제를 맞혔습니다.
+수포자 2는 모든 문제를 틀렸습니다.
+수포자 3은 모든 문제를 틀렸습니다.
+따라서 가장 문제를 많이 맞힌 사람은 수포자 1입니다.
+
+입출력 예 #2
+
+모든 사람이 2문제씩을 맞췄습니다.
+```python
+# 나의 풀이
+def solution(answers):
+    # 빈배열 선언
+    answer = []
+    # 수포자들의 패턴과 결과를 담을 변수 선언
+    sufo1 = [1, 2, 3, 4, 5]
+    sufo1_result = 0
+    sufo2 = [2, 1, 2, 3, 2, 4, 2, 5]
+    sufo2_result = 0
+    sufo3 = [3, 3, 1, 1, 2, 2, 4, 4, 5, 5]
+    sufo3_result = 0
+    # answers의 길이만큼 반복문 돌리기
+    for i in range(len(answers)):
+        # 패턴의 길이를 나눈 나머지와 answers의 패턴이 서로 맞으면 결과값 1 증가
+        if sufo1[i%5] == answers[i]:
+            sufo1_result += 1
+        if sufo2[i%8] == answers[i]:
+            sufo2_result += 1
+        if sufo3[i%10] == answers[i]:
+            sufo3_result += 1
+    # 결과값을 담을 배열 선언
+    temp = [sufo1_result, sufo2_result, sufo3_result]
+    # 인덱스값과 점수를 순회하는 반복문
+    for i, j in enumerate(temp):
+        # 만약 맞은 개수가 수포자 셋 중에 가장 많이 맞은 값과 같으면 인덱스 + 1값 추가
+        if j == max(temp):
+            answer.append(i + 1)
+    return answer
+```
+
+## 문자열 다루기 기본
+문자열 다루기 기본
+문제 설명
+문자열 s의 길이가 4 혹은 6이고, 숫자로만 구성돼있는지 확인해주는 함수, solution을 완성하세요. 예를 들어 s가 "a234"이면 False를 리턴하고 "1234"라면 True를 리턴하면 됩니다.
+
+제한 사항
+s는 길이 1 이상, 길이 8 이하인 문자열입니다.
+입출력 예
+s	return
+"a234"	false
+"1234"	true
+
+```python
+# 나의 풀이
+def solution(answers):
+    # 빈배열 선언
+    answer = []
+    # 수포자들의 패턴과 결과를 담을 변수 선언
+    sufo1 = [1, 2, 3, 4, 5]
+    sufo1_result = 0
+    sufo2 = [2, 1, 2, 3, 2, 4, 2, 5]
+    sufo2_result = 0
+    sufo3 = [3, 3, 1, 1, 2, 2, 4, 4, 5, 5]
+    sufo3_result = 0
+    # answers의 길이만큼 반복문 돌리기
+    for i in range(len(answers)):
+        # 패턴의 길이를 나눈 나머지와 answers의 패턴이 서로 맞으면 결과값 1 증가
+        if sufo1[i%5] == answers[i]:
+            sufo1_result += 1
+        if sufo2[i%8] == answers[i]:
+            sufo2_result += 1
+        if sufo3[i%10] == answers[i]:
+            sufo3_result += 1
+    # 결과값을 담을 배열 선언
+    temp = [sufo1_result, sufo2_result, sufo3_result]
+    # 인덱스값과 점수를 순회하는 반복문
+    for i, j in enumerate(temp):
+        # 만약 맞은 개수가 수포자 셋 중에 가장 많이 맞은 값과 같으면 인덱스 + 1값 추가
+        if j == max(temp):
+            answer.append(i + 1)
+    return answer
 ```

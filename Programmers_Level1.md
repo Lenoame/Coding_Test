@@ -625,31 +625,208 @@ s	return
 
 ```python
 # 나의 풀이
-def solution(answers):
-    # 빈배열 선언
-    answer = []
-    # 수포자들의 패턴과 결과를 담을 변수 선언
-    sufo1 = [1, 2, 3, 4, 5]
-    sufo1_result = 0
-    sufo2 = [2, 1, 2, 3, 2, 4, 2, 5]
-    sufo2_result = 0
-    sufo3 = [3, 3, 1, 1, 2, 2, 4, 4, 5, 5]
-    sufo3_result = 0
-    # answers의 길이만큼 반복문 돌리기
-    for i in range(len(answers)):
-        # 패턴의 길이를 나눈 나머지와 answers의 패턴이 서로 맞으면 결과값 1 증가
-        if sufo1[i%5] == answers[i]:
-            sufo1_result += 1
-        if sufo2[i%8] == answers[i]:
-            sufo2_result += 1
-        if sufo3[i%10] == answers[i]:
-            sufo3_result += 1
-    # 결과값을 담을 배열 선언
-    temp = [sufo1_result, sufo2_result, sufo3_result]
-    # 인덱스값과 점수를 순회하는 반복문
-    for i, j in enumerate(temp):
-        # 만약 맞은 개수가 수포자 셋 중에 가장 많이 맞은 값과 같으면 인덱스 + 1값 추가
-        if j == max(temp):
-            answer.append(i + 1)
+def solution(s):
+    answer = True
+    # 먼저 s의 길이가 맞는지 검사한다
+    if len(s) == 4 or len(s) == 6:
+        # s의 길이가 맞으면 내용이 숫자인지 검사문제 설명
+0부터 9까지의 숫자 중 일부가 들어있는 배열 numbers가 매개변수로 주어집니다. numbers에서 찾을 수 없는 0부터 9까지의 숫자를 모두 찾아 더한 수를 return 하도록 solution 함수를 완성해주세요.
+
+제한사항
+1 ≤ numbers의 길이 ≤ 9
+0 ≤ numbers의 모든 수 ≤ 9
+numbers의 모든 수는 서로 다릅니다.
+입출력 예
+numbers	result
+[1,2,3,4,6,7,8,0]	14
+[5,8,4,0,6,7,9]	6
+입출력 예 설명
+입출력 예 #1
+
+5, 9가 numbers에 없으므로, 5 + 9 = 14를 return 해야 합니다.
+입출력 예 #2
+
+1, 2, 3이 numbers에 없으므로, 1 + 2 + 3 = 6을 return 해야 합니다.
+        if s.isdigit() == False:
+            answer = False
+    # 길이가 맞지 않으면 False 반환
+    else:
+        answer = False
     return answer
 ```
+
+## 없는 숫자 더하기
+문제 설명
+0부터 9까지의 숫자 중 일부가 들어있는 배열 numbers가 매개변수로 주어집니다. numbers에서 찾을 수 없는 0부터 9까지의 숫자를 모두 찾아 더한 수를 return 하도록 solution 함수를 완성해주세요.
+
+제한사항
+1 ≤ numbers의 길이 ≤ 9
+0 ≤ numbers의 모든 수 ≤ 9
+numbers의 모든 수는 서로 다릅니다.
+입출력 예
+numbers	result
+[1,2,3,4,6,7,8,0]	14
+[5,8,4,0,6,7,9]	6
+입출력 예 설명
+입출력 예 #1
+
+5, 9가 numbers에 없으므로, 5 + 9 = 14를 return 해야 합니다.
+입출력 예 #2
+
+1, 2, 3이 numbers에 없으므로, 1 + 2 + 3 = 6을 return 해야 합니다.
+
+```python
+def solution(numbers):
+    # numbers를 집합으로 바꾼다
+    numbers = set(numbers)
+    # 0~9까지 들어있는 집합 ex 선언
+    ex = set(range(10))
+    # ex 와 numbers에 차집합을 결과값에 넣기
+    result = ex - numbers
+    # 차집합의 원소 합을 정답에 넣기
+    answer = sum(result)
+    return answer
+```
+
+## K번째 수
+문제 설명
+배열 array의 i번째 숫자부터 j번째 숫자까지 자르고 정렬했을 때, k번째에 있는 수를 구하려 합니다.
+
+예를 들어 array가 [1, 5, 2, 6, 3, 7, 4], i = 2, j = 5, k = 3이라면
+
+array의 2번째부터 5번째까지 자르면 [5, 2, 6, 3]입니다.
+1에서 나온 배열을 정렬하면 [2, 3, 5, 6]입니다.
+2에서 나온 배열의 3번째 숫자는 5입니다.
+배열 array, [i, j, k]를 원소로 가진 2차원 배열 commands가 매개변수로 주어질 때, commands의 모든 원소에 대해 앞서 설명한 연산을 적용했을 때 나온 결과를 배열에 담아 return 하도록 solution 함수를 작성해주세요.
+
+제한사항
+array의 길이는 1 이상 100 이하입니다.
+array의 각 원소는 1 이상 100 이하입니다.
+commands의 길이는 1 이상 50 이하입니다.
+commands의 각 원소는 길이가 3입니다.
+입출력 예
+array	commands	return
+[1, 5, 2, 6, 3, 7, 4]	[[2, 5, 3], [4, 4, 1], [1, 7, 3]]	[5, 6, 3]
+입출력 예 설명
+[1, 5, 2, 6, 3, 7, 4]를 2번째부터 5번째까지 자른 후 정렬합니다. [2, 3, 5, 6]의 세 번째 숫자는 5입니다.
+[1, 5, 2, 6, 3, 7, 4]를 4번째부터 4번째까지 자른 후 정렬합니다. [6]의 첫 번째 숫자는 6입니다.
+[1, 5, 2, 6, 3, 7, 4]를 1번째부터 7번째까지 자릅니다. [1, 2, 3, 4, 5, 6, 7]의 세 번째 숫자는 3입니다.
+
+```python
+#나의 풀이
+def solution(array, commands):
+    # 빈 배열 선언
+    answer = []
+    #commands를 차례대로 순회하기
+    for command in commands:
+        # result에 슬라이싱한 것을 저장하기. 배열은 0부터 인덱싱하므로 첫원소에 -1 해주기
+        result = array[command[0]-1:command[1]]
+        #배열 정렬
+        result.sort()
+        #answer에 하나씩 추가해주기
+        answer.append(result[command[2]-1])
+    
+    return answer
+```
+
+## 자연수 뒤집어 배열로 만들기
+문제 설명
+자연수 n을 뒤집어 각 자리 숫자를 원소로 가지는 배열 형태로 리턴해주세요. 예를들어 n이 12345이면 [5,4,3,2,1]을 리턴합니다.
+
+제한 조건
+n은 10,000,000,000이하인 자연수입니다.
+입출력 예
+n	return
+12345	[5,4,3,2,1]
+
+```python
+# 나의 풀이
+def solution(n):
+    # 빈 배열 선언
+    answer = []
+    # 문자열로 바꿔준 숫자를 뒤집어서 순회하기
+    for i in reversed(str(n)):
+        # answer에 int로 바꿔서 넣어주기
+        answer.append(int(i))
+        
+    return answer
+```
+
+## 제일 작은 수 제거하기
+문제 설명
+정수를 저장한 배열, arr 에서 가장 작은 수를 제거한 배열을 리턴하는 함수, solution을 완성해주세요. 단, 리턴하려는 배열이 빈 배열인 경우엔 배열에 -1을 채워 리턴하세요. 예를들어 arr이 [4,3,2,1]인 경우는 [4,3,2]를 리턴 하고, [10]면 [-1]을 리턴 합니다.
+
+제한 조건
+arr은 길이 1 이상인 배열입니다.
+인덱스 i, j에 대해 i ≠ j이면 arr[i] ≠ arr[j] 입니다.
+입출력 예
+arr	return
+[4,3,2,1]	[4,3,2]
+[10]	[-1]
+
+```python
+# 나의 풀이
+def solution(arr):
+    # arr 의 길이가 1보다 크다면
+    if len(arr) > 1:
+        # arr에서 가장 작은 값을 제거하고 리턴한다
+        arr.remove(min(arr))
+        return arr
+    # 그렇지 않다면 [-1] 리턴
+    else:
+        return [-1]
+```
+
+## 짝수와 홀수
+문제 설명
+정수 num이 짝수일 경우 "Even"을 반환하고 홀수인 경우 "Odd"를 반환하는 함수, solution을 완성해주세요.
+
+제한 조건
+num은 int 범위의 정수입니다.
+0은 짝수입니다.
+입출력 예
+num	return
+3	"Odd"
+4	"Even"
+
+```python
+# 나의 풀이
+def solution(num):
+    # 만약 num 이 짝수라면 "Even"리턴
+    if num % 2 == 0:
+        return "Even"
+    # 그렇지 않다면 "Odd" 리턴
+    else:
+        return "Odd"
+```
+
+## 평균 구하기
+문제 설명
+정수를 담고 있는 배열 arr의 평균값을 return하는 함수, solution을 완성해보세요.
+
+제한사항
+arr은 길이 1 이상, 100 이하인 배열입니다.
+arr의 원소는 -10,000 이상 10,000 이하인 정수입니다.
+입출력 예
+arr	return
+[1,2,3,4]	2.5
+[5,5]	5
+
+
+```python
+# 나의 풀이
+def solution(arr):
+    # arr의 모든 수 합에 arr 길이를 나누면 평균값이 된다
+    return sum(arr) / len(arr)
+```
+
+## 직사각형 별찍기
+```python
+# 나의 풀이
+# a, b 입력 받기
+a, b = map(int, input().split())
+# b 만큼 반복하고 한 줄에 a 만큼 별 찍기
+for i in range(b):
+    print('*' * a)
+```
+
